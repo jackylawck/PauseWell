@@ -1,24 +1,66 @@
 {
+  "id": "/PauseWell/",
   "name": "安心歇 · PauseWell",
   "short_name": "安心歇",
   "description": "歇奏之間，安心自定。純本機求職節奏與心態日誌。",
+  "lang": "zh-HK",
   "start_url": "./index.html",
+  "scope": "./",
   "display": "standalone",
   "orientation": "portrait-primary",
   "background_color": "#ffffff",
   "theme_color": "#f8fafc",
+  "categories": ["productivity", "lifestyle", "utilities"],
   "icons": [
     {
       "src": "PauseWell192icon.png",
       "sizes": "192x192",
       "type": "image/png",
-      "purpose": "any maskable"
+      "purpose": "any"
+    },
+    {
+      "src": "PauseWell192icon.png",
+      "sizes": "192x192",
+      "type": "image/png",
+      "purpose": "maskable"
     },
     {
       "src": "PauseWell512icon.png",
       "sizes": "512x512",
       "type": "image/png",
-      "purpose": "any maskable"
+      "purpose": "any"
+    },
+    {
+      "src": "PauseWell512icon.png",
+      "sizes": "512x512",
+      "type": "image/png",
+      "purpose": "maskable"
+    }
+  ],
+  "shortcuts": [
+    {
+      "name": "記錄新申請",
+      "short_name": "新申請",
+      "description": "快速記錄今天投遞的職位與進度",
+      "url": "./index.html#jobForm",
+      "icons": [
+        {
+          "src": "PauseWell192icon.png",
+          "sizes": "192x192"
+        }
+      ]
+    },
+    {
+      "name": "每週覆盤與數據",
+      "short_name": "每週覆盤",
+      "description": "檢視投遞漏斗與客觀面試轉化率",
+      "url": "./index.html#review",
+      "icons": [
+        {
+          "src": "PauseWell192icon.png",
+          "sizes": "192x192"
+        }
+      ]
     }
   ]
 }
