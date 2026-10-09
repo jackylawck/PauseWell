@@ -73,12 +73,13 @@ const dictionaries = {
     'guide.s3.title': '3. 每週覆盤與策略微調',
     'guide.s3.desc': '點擊「每週覆盤」檢視面試轉換率與逾期狀況。用客觀專案管理思維代替自責。',
 
-    'compliance.title': '資訊安全與隱私合規聲明 (Privacy & Governance)',
-    'compliance.intro': '本應用以「以人為本、隱私第一」為核心，符合中外嚴格治理標準：',
-    'comp.pdpo': '符合香港 PDPO 數據保護原則。100% 本端記憶體運算，無伺服器留存 (ZDR)，徹底阻斷個資洩漏。',
-    'comp.gdpr': '遵循 GDPR 第 25 條 (Privacy-by-Design)。無 Cookie 追蹤、無遙測，支援標準 JSON 本端可攜性。',
-    'comp.ai': '符合 EU AI Act 治理精神。不設黑箱演算法推薦，數據透明可解釋，落實「人自主宰 (Human-in-the-Loop)」。',
-    'comp.iso': '對標 ISO/IEC 27001 與 ISO/IEC 27701。以嚴格 CSP 沙盒保護，斷網環境下亦能安全運行。'
+    'compliance.title': '資訊安全、AI治理與法規適用聲明 (Governance Statement)',
+    'compliance.intro': '本工具專為消除求職焦慮與保障隱私而設計，依據國際法規標準如實界定適用範圍：',
+    'comp.pdpo': '完全符合。100% 本端記憶體運算，無伺服器留存 (ZDR)，徹底阻斷個資洩漏風險。',
+    'comp.gdpr': '完全符合第 25 條 (Privacy-by-Design) 與資料最小化原則。無 Cookie、無遙測，支援標準 JSON 本端可攜性。',
+    'comp.cac': '完全符合。資料僅留存於使用者本機設備，不涉及雲端集中收集與個人資訊跨境傳輸。',
+    'comp.ai': '【架構豁免】本系統純屬確定性統計工具，無使用任何生成式或決策式 AI 演算法，不屬於高風險招聘 AI 系統。',
+    'comp.iso': '全面對標資安與隱私管理標準；治理上踐行 ISO/IEC 42001 人自主宰與演算法透明原則，完全由使用者掌握主導權。'
   },
 
   'en': {
@@ -149,12 +150,13 @@ const dictionaries = {
     'guide.s3.title': '3. Weekly Strategy Audit',
     'guide.s3.desc': 'Open "Weekly Review" to monitor conversion metrics and overdue items. Turn anxiety into actionable tactics.',
 
-    'compliance.title': 'Information Security & Privacy Governance Statement',
-    'compliance.intro': 'Designed with strict privacy-by-design standards to ensure uncompromising security:',
-    'comp.pdpo': 'Aligned with HK PDPO DPP Principles. 100% In-Memory computing, zero logs, zero cloud leakage.',
-    'comp.gdpr': 'Strictly compliant with GDPR Art. 25 (Privacy-by-Design). Zero telemetry, full local data portability.',
-    'comp.ai': 'Aligned with EU AI Act & Ethical Frameworks. Free of opaque algorithms; preserves full human agency.',
-    'comp.iso': 'Benchmarked against ISO/IEC 27001 & 27701. Hardened by strict CSP sandbox, fully operational offline.'
+    'compliance.title': 'InfoSec, AI Governance & Legal Applicability Statement',
+    'compliance.intro': 'Purpose-built to eliminate job search anxiety while preserving strict privacy. Boundaries are objectively defined:',
+    'comp.pdpo': 'Fully Compliant with HK PDPO DPPs. 100% In-Memory computing, Zero Data Retention (ZDR), eliminating data leakage risks.',
+    'comp.gdpr': 'Fully Compliant with GDPR / UK GDPR Art. 25 (Privacy-by-Design). Zero cookies, zero telemetry, full local data portability.',
+    'comp.cac': 'Fully Compliant with CAC PIPL. Data remains local on client devices; zero cloud storage, zero cross-border data transfer.',
+    'comp.ai': '[Architectural Exemption] Pure deterministic logic without generative or predictive models. Falls outside High-risk AI scope.',
+    'comp.iso': 'Aligned with ISO/IEC 27001 & 27701. Aligns with ISO/IEC 42001 principles of human agency, oversight, and algorithmic transparency.'
   }
 };
 
