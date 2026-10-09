@@ -1,3 +1,5 @@
+<!DOCTYPE html>
+<html lang="zh-HK" prefix="og: https://ogp.me/ns#">
 <head>
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no, shrink-to-fit=no, viewport-fit=cover">
@@ -7,7 +9,7 @@
 
   <!-- 🔍 基礎 SEO 核心標籤 -->
   <title>安心歇 · PauseWell | 純本機求職節奏與心態日誌 (Zero Data Retention)</title>
-  <meta name="description" content="安心歇 (PauseWell) 是一款專為失業轉職者打造的 Local-First 求職節奏與心態導航工具。以《悠長假期》哲學為引，100% 本端記憶體運算、零日誌留存 (ZDR)，具備日常錨點建立、求職漏斗分析與跟進提醒，助你重拾生活控制感。">
+  <meta name="description" content="安心歇 (PauseWell) 是一款專為轉職與待業者打造的 Local-First 求職節奏與心態導航工具。以《悠長假期》哲學為引，100% 本端記憶體運算、零日誌留存 (ZDR)，具備日常錨點建立、求職漏斗分析與跟進提醒，助你重拾生活控制感。">
   <meta name="keywords" content="安心歇, PauseWell, 失業支援, 求職管理, 悠長假期, 轉職工具, Local-First, Zero Data Retention, 隱私優先, 心理韌性, 面試追蹤, 個人資料私隱">
   <meta name="author" content="PauseWell Engineering">
   <meta name="robots" content="index, follow">
@@ -31,24 +33,20 @@
   <meta name="twitter:description" content="純本機零留存求職節奏導航。在人生間奏中安頓心神，重拾個人控制感。">
   <meta name="twitter:image" content="https://jackylawck.github.io/PauseWell/PauseWell512icon.png">
 
-  <!-- 📱 PWA 與手機「加入主畫面」沉浸體驗設定 -->
+  <!-- 📱 PWA 與行動裝置「加入主畫面」設定 -->
   <link rel="manifest" href="manifest.json">
   <link rel="icon" type="image/png" sizes="192x192" href="PauseWell192icon.png">
   <link rel="icon" type="image/png" sizes="512x512" href="PauseWell512icon.png">
   <link rel="apple-touch-icon" sizes="192x192" href="PauseWell192icon.png">
   <link rel="apple-touch-icon" sizes="512x512" href="PauseWell512icon.png">
-  
-  <!-- iOS Safari 專屬全螢幕/狀態列適配 -->
   <meta name="apple-mobile-web-app-capable" content="yes">
   <meta name="apple-mobile-web-app-status-bar-style" content="default">
   <meta name="apple-mobile-web-app-title" content="安心歇">
-  
-  <!-- Android Chrome 適配 -->
   <meta name="mobile-web-app-capable" content="yes">
   <meta name="theme-color" content="#f8fafc">
   <meta name="application-name" content="安心歇 · PauseWell">
 
-  <!-- 🛡️ 企業級資安策略：Content Security Policy (CSP) 與權限沙盒 -->
+  <!-- 🛡️ 企業級資安策略：CSP 與硬體權限隔離 -->
   <meta http-equiv="Content-Security-Policy" content="
     default-src 'self';
     script-src 'self';
@@ -152,6 +150,7 @@
         <span class="trust-pill" data-action="open-compliance">🛡️ Privacy by Design</span>
         <span class="trust-pill" data-action="open-compliance">HK PDPO Compliant</span>
         <span class="trust-pill" data-action="open-compliance">GDPR Art. 25</span>
+        <span class="trust-pill" data-action="open-compliance">EU AI Act (Exempt)</span>
         <span class="trust-pill" data-action="open-compliance">ISO 27001 / 27701 Aligned</span>
         <span class="trust-pill" data-action="open-compliance">Zero Data Retention (ZDR)</span>
       </div>
@@ -189,7 +188,7 @@
       </div>
 
       <div class="modal-actions-right">
-        <button id="btnCloseGuide" class="btn-secondary" data-i18n="btn.close">關閉</button>
+        <button id="btnCloseGuide" class="btn-secondary" data-i18n="btn.close">我知道了</button>
       </div>
     </div>
   </dialog>
@@ -197,25 +196,29 @@
   <!-- 合規與隱私治理聲明 Modal -->
   <dialog id="complianceModal" class="modal">
     <div class="modal-box">
-      <h3 data-i18n="compliance.title">資訊安全與隱私合規聲明 (Privacy & Governance)</h3>
-      <p class="modal-intro" data-i18n="compliance.intro">本工具專為消除求職焦慮與保障隱私而設計，具備以下架構性合規保障：</p>
+      <h3 data-i18n="compliance.title">資訊安全、AI治理與法規適用聲明 (Governance Statement)</h3>
+      <p class="modal-intro" data-i18n="compliance.intro">本工具專為消除求職焦慮與保障隱私而設計，依據國際法規標準如實界定適用範圍：</p>
       
       <ul class="compliance-list">
         <li>
           <strong>🇭🇰 香港個人資料（私隱）條例 (PDPO)</strong>：
-          <span data-i18n="comp.pdpo">本機記憶體即時運算，不設後端伺服器與日誌歸檔，零個資外洩風險。</span>
+          <span data-i18n="comp.pdpo">完全符合。100% 本端記憶體運算，無伺服器留存 (ZDR)，徹底阻斷個資洩漏風險。</span>
         </li>
         <li>
-          <strong>🇪🇺 歐盟 GDPR (General Data Protection Regulation)</strong>：
-          <span data-i18n="comp.gdpr">嚴格遵循 Article 25 (Privacy-by-Design) 與資料最小化原則，用戶擁有完整本機資料可攜性（JSON 一鍵導出）。</span>
+          <strong>🇪🇺 歐盟 GDPR / 英國 GDPR</strong>：
+          <span data-i18n="comp.gdpr">完全符合第 25 條 (Privacy-by-Design) 與資料最小化原則。無 Cookie、無遙測，支援標準 JSON 本端可攜性。</span>
         </li>
         <li>
-          <strong>🤖 歐盟人工智能法案 (EU AI Act) & 倫理規範</strong>：
-          <span data-i18n="comp.ai">不採用黑箱自動化篩選演算法，求職數據僅用於本機可解釋性統計，完全由用戶主導（Human-in-the-Loop）。</span>
+          <strong>🇨🇳 國家網信辦 (CAC) 《個人信息保護法》(PIPL)</strong>：
+          <span data-i18n="comp.cac">完全符合。資料僅留存於使用者本機設備，不涉及雲端集中收集與個人資訊跨境傳輸。</span>
         </li>
         <li>
-          <strong>🔒 ISO/IEC 27001 (資安) & ISO/IEC 27701 (隱私)</strong>：
-          <span data-i18n="comp.iso">以 Content Security Policy (CSP) 阻斷所有外部追蹤與資料外發通道，符合零信任純前端標準。</span>
+          <strong>🤖 歐盟人工智能法案 (EU AI Act)</strong>：
+          <span data-i18n="comp.ai">【架構豁免】本系統純屬確定性統計工具，無使用任何生成式或決策式 AI 演算法，不屬於高風險招聘 AI 系統。</span>
+        </li>
+        <li>
+          <strong>🌐 ISO/IEC 27001、27701 與 42001</strong>：
+          <span data-i18n="comp.iso">全面對標資安與隱私管理標準；治理上踐行 ISO/IEC 42001 人自主宰與演算法透明原則，完全由使用者掌握主導權。</span>
         </li>
       </ul>
 
