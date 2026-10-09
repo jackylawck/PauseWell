@@ -15,15 +15,15 @@
   <meta name="robots" content="index, follow">
   <link rel="canonical" href="https://jackylawck.github.io/PauseWell/">
 
-  <!-- 🌐 Open Graph / Facebook / LinkedIn 社交卡片 -->
+  <!-- 🌐 Open Graph / Facebook / LinkedIn 社交卡片 (封面圖對齊至 gemini-svg.svg) -->
   <meta property="og:type" content="website">
   <meta property="og:url" content="https://jackylawck.github.io/PauseWell/">
   <meta property="og:title" content="安心歇 · PauseWell | 歇奏之間，安心自定">
   <meta property="og:description" content="「當甚麼都不順利時，就當作上天賜予的長假。」100% 本地運算、零伺服器留存的求職節奏與生活錨點工具。">
-  <meta property="og:image" content="https://jackylawck.github.io/PauseWell/PauseWell512icon.png">
-  <meta property="og:image:width" content="512">
-  <meta property="og:image:height" content="512">
-  <meta property="og:image:alt" content="安心歇 PauseWell 標誌">
+  <meta property="og:image" content="https://jackylawck.github.io/PauseWell/gemini-svg.svg">
+  <meta property="og:image:width" content="1200">
+  <meta property="og:image:height" content="675">
+  <meta property="og:image:alt" content="安心歇 PauseWell 經典看板封面 - DON'T WORRY BE HAPPY">
   <meta property="og:locale" content="zh_HK">
   <meta property="og:site_name" content="安心歇 · PauseWell">
 
@@ -31,7 +31,7 @@
   <meta name="twitter:card" content="summary_large_image">
   <meta name="twitter:title" content="安心歇 · PauseWell | Reclaim Your Career Rhythm">
   <meta name="twitter:description" content="純本機零留存求職節奏導航。在人生間奏中安頓心神，重拾個人控制感。">
-  <meta name="twitter:image" content="https://jackylawck.github.io/PauseWell/PauseWell512icon.png">
+  <meta name="twitter:image" content="https://jackylawck.github.io/PauseWell/gemini-svg.svg">
 
   <!-- 📱 PWA 與行動裝置「加入主畫面」設定 -->
   <link rel="manifest" href="manifest.json">
@@ -51,7 +51,7 @@
     default-src 'self';
     script-src 'self';
     style-src 'self';
-    img-src 'self' data: blob:;
+    img-src 'self' data: blob: https://jackylawck.github.io;
     font-src 'self' data:;
     connect-src 'self';
     media-src 'none';
@@ -81,6 +81,11 @@
         <button id="btnLangToggle" class="btn-secondary">English</button>
       </div>
     </header>
+
+    <!-- 🎨 經典悠長假期看板封面 (使用 gemini-svg.svg) -->
+    <div class="cover-wrapper">
+      <img src="gemini-svg.svg" alt="安心歇 · DON'T WORRY BE HAPPY 經典看板" class="cover-img">
+    </div>
 
     <!-- 悠長假期哲學橫幅 -->
     <aside class="motto-banner" data-i18n="app.motto">
