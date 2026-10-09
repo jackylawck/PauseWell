@@ -1,0 +1,129 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 1200 675" width="100%" height="100%">
+  <defs>
+    <!-- 天空漸變色 -->
+    <linearGradient id="skyGrad" x1="0%" y1="0%" x2="0%" y2="100%">
+      <stop offset="0%" stop-color="#2a5298" />
+      <stop offset="45%" stop-color="#4a90e2" />
+      <stop offset="70%" stop-color="#87ceeb" />
+      <stop offset="100%" stop-color="#bfe3f7" />
+    </linearGradient>
+
+    <!-- 海洋漸變色 -->
+    <linearGradient id="seaGrad" x1="0%" y1="0%" x2="0%" y2="100%">
+      <stop offset="0%" stop-color="#1b6ca8" />
+      <stop offset="40%" stop-color="#29a19c" />
+      <stop offset="100%" stop-color="#48dbfb" />
+    </linearGradient>
+
+    <!-- 沙灘漸變色 -->
+    <linearGradient id="sandGrad" x1="0%" y1="0%" x2="0%" y2="100%">
+      <stop offset="0%" stop-color="#fdf2e9" />
+      <stop offset="25%" stop-color="#fae5d3" />
+      <stop offset="100%" stop-color="#ebd2b9" />
+    </linearGradient>
+
+    <!-- 柔光濾鏡 -->
+    <filter id="softGlow" x="-20%" y="-20%" width="140%" height="140%">
+      <feGaussianBlur stdDeviation="3" result="blur" />
+      <feComposite in="SourceGraphic" in2="blur" operator="over" />
+    </filter>
+  </defs>
+
+  <style>
+    .retro-title { font-family: 'Arial Black', Impact, sans-serif; font-style: italic; font-weight: 900; }
+    .retro-sub { font-family: 'Helvetica Neue', Arial, sans-serif; font-weight: 800; letter-spacing: 2px; }
+    .banner-text { font-family: 'Trebuchet MS', 'Arial Black', sans-serif; font-style: italic; font-weight: 900; letter-spacing: 4px; }
+  </style>
+
+  <!-- 看板深色邊框 -->
+  <rect x="0" y="0" width="1200" height="675" fill="#0f172a" />
+  <rect x="18" y="18" width="1164" height="639" fill="#1e293b" rx="6" />
+
+  <!-- 看板畫布主體 -->
+  <g transform="translate(30, 30)">
+    <!-- 1. 背景：天空、雲彩、大海、沙灘 -->
+    <rect x="0" y="0" width="1140" height="615" fill="url(#skyGrad)" />
+    
+    <path d="M 120 310 Q 180 290 240 310 Q 300 300 360 315 L 0 315 Z" fill="#ffffff" opacity="0.35" />
+    <path d="M 750 305 Q 830 285 910 305 Q 980 295 1060 310 L 1140 310 L 700 310 Z" fill="#ffffff" opacity="0.3" />
+
+    <!-- 蔚藍海洋 -->
+    <rect x="0" y="315" width="1140" height="85" fill="url(#seaGrad)" />
+    <path d="M 0 398 Q 120 395 240 398 T 480 397 T 720 399 T 960 397 T 1140 398 L 1140 403 L 0 403 Z" fill="#ffffff" opacity="0.8" />
+
+    <!-- 金黃沙灘 -->
+    <rect x="0" y="402" width="1140" height="213" fill="url(#sandGrad)" />
+    <ellipse cx="600" cy="530" rx="360" ry="40" fill="#d7b998" opacity="0.4" />
+
+    <!-- 2. 安全合規替換字樣 (完全原創化) -->
+    <!-- 左上角: 改為專案名稱 Pause Well -->
+    <g transform="translate(60, 80)">
+      <text x="0" y="0" class="retro-title" font-size="68" fill="#facc15" stroke="#ca8a04" stroke-width="2" filter="url(#softGlow)">Pause</text>
+      <text x="0" y="65" class="retro-title" font-size="68" fill="#facc15" stroke="#ca8a04" stroke-width="2" filter="url(#softGlow)">Well</text>
+    </g>
+
+    <!-- 右上角: 改為 1996.04 (長假致敬年份) 與 LOCAL / ZDR (本機運算標籤) -->
+    <g transform="translate(830, 85)" fill="#ffffff" opacity="0.9">
+      <text x="0" y="0" class="retro-sub" font-size="64" letter-spacing="1px">1996.04</text>
+      <text x="5" y="42" class="retro-sub" font-size="30">Z D R · A I R</text>
+      <text x="5" y="78" class="retro-sub" font-size="30">L O C A L</text>
+    </g>
+
+    <!-- 3. 二人放鬆背影姿態 (自主繪製藝術剪影) -->
+    <!-- 男士（趴在沙灘上放鬆看海） -->
+    <g id="figure-male">
+      <ellipse cx="500" cy="515" rx="140" ry="18" fill="#8c6d48" opacity="0.35" />
+      <path d="M 370 475 Q 310 495 285 505 Q 315 515 365 495 Z" fill="#c49a6c" />
+      <path d="M 400 460 Q 320 480 295 490 Q 330 498 395 480 Z" fill="#d9ad7c" />
+      <path d="M 390 445 L 435 440 L 445 495 L 385 490 Z" fill="#f8fafc" />
+      <path d="M 430 420 Q 520 395 560 445 Q 540 500 440 500 Q 410 470 430 420 Z" fill="#e06d53" />
+      <path d="M 450 430 Q 480 410 510 435 Q 490 480 440 485 Z" fill="#f6ad55" opacity="0.6" />
+      <path d="M 480 440 Q 520 430 535 465 Q 490 495 460 480 Z" fill="#4fd1c5" opacity="0.5" />
+      <path d="M 525 450 Q 565 480 550 515 Q 535 515 515 485 Z" fill="#c49a6c" />
+      <ellipse cx="490" cy="385" rx="26" ry="24" fill="#a0aec0" />
+      <path d="M 465 385 Q 490 370 515 385 Q 500 395 470 392 Z" fill="#718096" />
+      <path d="M 478 395 Q 490 415 502 395 Z" fill="#b78a58" />
+    </g>
+
+    <!-- 女士（在旁坐立、粉色泳衣、溫柔搭肩） -->
+    <g id="figure-female">
+      <ellipse cx="685" cy="518" rx="85" ry="16" fill="#8c6d48" opacity="0.35" />
+      <path d="M 640 475 Q 600 500 625 515 Q 700 520 710 495 Z" fill="#c49a6c" />
+      <path d="M 645 405 C 640 440 645 485 660 500 C 675 510 705 505 710 485 C 715 445 710 410 695 405 Z" fill="#f472b6" />
+      <path d="M 655 385 Q 675 425 695 385 Q 685 435 660 435 Z" fill="#d9ad7c" />
+      <path d="M 655 390 Q 585 410 545 425 Q 555 435 645 415 Z" fill="#d9ad7c" />
+      <circle cx="542" cy="425" r="7" fill="#c49a6c" />
+      <path d="M 700 405 Q 725 435 720 470 Q 710 470 695 435 Z" fill="#c49a6c" />
+      <ellipse cx="678" cy="355" rx="20" ry="22" fill="#5a3825" />
+      <path d="M 688 355 C 700 365 695 395 682 410 C 680 395 685 375 682 365 Z" fill="#422415" />
+      <circle cx="684" cy="368" r="5" fill="#f472b6" />
+      <path d="M 670 372 Q 678 390 684 372 Z" fill="#d9ad7c" />
+    </g>
+
+    <!-- 野餐竹籃 -->
+    <g id="basket" transform="translate(775, 450)">
+      <ellipse cx="45" cy="45" rx="35" ry="8" fill="#8c6d48" opacity="0.3" />
+      <path d="M 15 25 Q 45 10 75 25 L 68 50 Q 45 55 22 50 Z" fill="#d4a373" />
+      <path d="M 15 25 Q 45 35 75 25" stroke="#bc6c25" stroke-width="3" fill="none" />
+      <path d="M 45 12 Q 35 -10 45 -12 Q 55 -10 45 12" stroke="#8b5e34" stroke-width="4" fill="none" />
+    </g>
+
+    <!-- 4. 底部公有領域勵志標語 -->
+    <g transform="translate(0, 530)">
+      <rect x="0" y="0" width="1140" height="85" fill="#ffffff" opacity="0.95" />
+      <line x1="0" y1="0" x2="1140" y2="0" stroke="#cbd5e1" stroke-width="2" />
+      <text x="570" y="58" text-anchor="middle" class="banner-text" font-size="54" fill="#2563eb">
+        DON'T WORRY BE HAPPY
+      </text>
+    </g>
+  </g>
+
+  <!-- 頂部射燈裝飾 -->
+  <g fill="#94a3b8">
+    <circle cx="160" cy="18" r="7" fill="#f8fafc" filter="url(#softGlow)" />
+    <circle cx="380" cy="18" r="7" fill="#f8fafc" filter="url(#softGlow)" />
+    <circle cx="600" cy="18" r="7" fill="#f8fafc" filter="url(#softGlow)" />
+    <circle cx="820" cy="18" r="7" fill="#f8fafc" filter="url(#softGlow)" />
+    <circle cx="1040" cy="18" r="7" fill="#f8fafc" filter="url(#softGlow)" />
+  </g>
+</svg>
