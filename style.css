@@ -45,6 +45,24 @@ body {
   margin-top: 0.25rem;
 }
 
+/* 🎨 悠長假期經典看板封面容器 */
+.cover-wrapper {
+  width: 100%;
+  border-radius: 0.75rem;
+  overflow: hidden;
+  margin-bottom: 1.25rem;
+  box-shadow: 0 4px 6px -1px rgba(0, 0, 0, 0.08);
+  background-color: #0f172a;
+}
+
+.cover-img {
+  width: 100%;
+  height: auto;
+  display: block;
+  aspect-ratio: 16 / 9;
+  object-fit: cover;
+}
+
 .motto-banner {
   background-color: #f1f5f9;
   border-left: 3px solid #64748b;
