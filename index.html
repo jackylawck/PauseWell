@@ -1,0 +1,277 @@
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no, shrink-to-fit=no, viewport-fit=cover">
+  
+  <!-- 🔍 Google 搜尋主控台 (Google Search Console) 驗證 -->
+  <meta name="google-site-verification" content="JZ5UohX-CcP_fQV0_DI9VadkKY4ZoTTkUifL88-fIcY">
+
+  <!-- 🔍 基礎 SEO 核心標籤 -->
+  <title>安心歇 · PauseWell | 純本機求職節奏與心態日誌 (Zero Data Retention)</title>
+  <meta name="description" content="安心歇 (PauseWell) 是一款專為失業轉職者打造的 Local-First 求職節奏與心態導航工具。以《悠長假期》哲學為引，100% 本端記憶體運算、零日誌留存 (ZDR)，具備日常錨點建立、求職漏斗分析與跟進提醒，助你重拾生活控制感。">
+  <meta name="keywords" content="安心歇, PauseWell, 失業支援, 求職管理, 悠長假期, 轉職工具, Local-First, Zero Data Retention, 隱私優先, 心理韌性, 面試追蹤, 個人資料私隱">
+  <meta name="author" content="PauseWell Engineering">
+  <meta name="robots" content="index, follow">
+  <link rel="canonical" href="https://jackylawck.github.io/PauseWell/">
+
+  <!-- 🌐 Open Graph / Facebook / LinkedIn 社交卡片 -->
+  <meta property="og:type" content="website">
+  <meta property="og:url" content="https://jackylawck.github.io/PauseWell/">
+  <meta property="og:title" content="安心歇 · PauseWell | 歇奏之間，安心自定">
+  <meta property="og:description" content="「當甚麼都不順利時，就當作上天賜予的長假。」100% 本地運算、零伺服器留存的求職節奏與生活錨點工具。">
+  <meta property="og:image" content="https://jackylawck.github.io/PauseWell/PauseWell512icon.png">
+  <meta property="og:image:width" content="512">
+  <meta property="og:image:height" content="512">
+  <meta property="og:image:alt" content="安心歇 PauseWell 標誌">
+  <meta property="og:locale" content="zh_HK">
+  <meta property="og:site_name" content="安心歇 · PauseWell">
+
+  <!-- 🐦 Twitter Cards -->
+  <meta name="twitter:card" content="summary_large_image">
+  <meta name="twitter:title" content="安心歇 · PauseWell | Reclaim Your Career Rhythm">
+  <meta name="twitter:description" content="純本機零留存求職節奏導航。在人生間奏中安頓心神，重拾個人控制感。">
+  <meta name="twitter:image" content="https://jackylawck.github.io/PauseWell/PauseWell512icon.png">
+
+  <!-- 📱 PWA 與手機「加入主畫面」沉浸體驗設定 -->
+  <link rel="manifest" href="manifest.json">
+  <link rel="icon" type="image/png" sizes="192x192" href="PauseWell192icon.png">
+  <link rel="icon" type="image/png" sizes="512x512" href="PauseWell512icon.png">
+  <link rel="apple-touch-icon" sizes="192x192" href="PauseWell192icon.png">
+  <link rel="apple-touch-icon" sizes="512x512" href="PauseWell512icon.png">
+  
+  <!-- iOS Safari 專屬全螢幕/狀態列適配 -->
+  <meta name="apple-mobile-web-app-capable" content="yes">
+  <meta name="apple-mobile-web-app-status-bar-style" content="default">
+  <meta name="apple-mobile-web-app-title" content="安心歇">
+  
+  <!-- Android Chrome 適配 -->
+  <meta name="mobile-web-app-capable" content="yes">
+  <meta name="theme-color" content="#f8fafc">
+  <meta name="application-name" content="安心歇 · PauseWell">
+
+  <!-- 🛡️ 企業級資安策略：Content Security Policy (CSP) 與權限沙盒 -->
+  <meta http-equiv="Content-Security-Policy" content="
+    default-src 'self';
+    script-src 'self';
+    style-src 'self';
+    img-src 'self' data: blob:;
+    font-src 'self' data:;
+    connect-src 'self';
+    media-src 'none';
+    object-src 'none';
+    base-uri 'self';
+    form-action 'none';
+  ">
+  <meta http-equiv="Permissions-Policy" content="accelerometer=(), gyroscope=(), microphone=(), camera=(), geolocation=(), payment=(), usb=()">
+  <meta name="referrer" content="strict-origin-when-cross-origin">
+
+  <link rel="stylesheet" href="style.css">
+</head>
+<body>
+  <div class="container">
+    <header class="header">
+      <div class="header-titles">
+        <h1 data-i18n="app.title">安心歇 · PauseWell</h1>
+        <p data-i18n="app.subtitle">歇奏之間，安心自定。100% 本端記憶體運算，零日誌留存 (ZDR)。</p>
+      </div>
+      <div class="actions-group">
+        <button id="btnGuide" class="btn-secondary" data-i18n="btn.guide">使用指引</button>
+        <button id="btnCompliance" class="btn-secondary" data-i18n="btn.compliance">合規架構</button>
+        <button id="btnWeeklyReview" class="btn-secondary" data-i18n="btn.review">每週覆盤與數據</button>
+        <button id="btnExport" class="btn-secondary" data-i18n="btn.export">備份</button>
+        <button id="btnImportTrigger" class="btn-secondary" data-i18n="btn.import">匯入</button>
+        <input type="file" id="fileImporter" accept=".json" class="hidden-input">
+        <button id="btnLangToggle" class="btn-secondary">English</button>
+      </div>
+    </header>
+
+    <!-- 悠長假期哲學橫幅 -->
+    <aside class="motto-banner" data-i18n="app.motto">
+      「當甚麼都不順利時，就當作上天賜予的長假。安下心歇一歇，順其自然就好。」
+    </aside>
+
+    <main class="grid-layout">
+      <!-- 1. 每日生活節奏 -->
+      <section class="card">
+        <h2 data-i18n="section.habits">生活規律與守則 (日常錨點)</h2>
+        <div class="input-group">
+          <input id="habitInput" type="text" maxlength="100" data-i18n-attr="placeholder:input.habit.ph">
+          <button id="btnAddHabit" class="btn-primary" data-i18n="btn.add">新增</button>
+        </div>
+        <ul id="habitList" class="list"></ul>
+      </section>
+
+      <!-- 2. 求職紀錄與跟進 -->
+      <section class="card">
+        <div class="card-header-row">
+          <h2 data-i18n="section.jobs">申請進度與跟進</h2>
+        </div>
+        
+        <div class="filter-bar">
+          <input id="jobSearchInput" type="search" maxlength="50" data-i18n-attr="placeholder:filter.search.ph">
+          <select id="jobFilterStatus">
+            <option value="ALL" data-i18n="filter.status.all">全部狀態</option>
+            <option value="status.applied" data-i18n="status.applied">已投遞</option>
+            <option value="status.interviewing" data-i18n="status.interviewing">面試中</option>
+            <option value="status.waiting" data-i18n="status.waiting">等待結果</option>
+            <option value="status.closed" data-i18n="status.closed">已完結</option>
+          </select>
+        </div>
+
+        <form id="jobForm" class="form-group">
+          <input id="jobCompany" type="text" maxlength="100" data-i18n-attr="placeholder:input.company.ph" required>
+          <div class="form-row">
+            <select id="jobStatus">
+              <option value="status.applied" data-i18n="status.applied">已投遞</option>
+              <option value="status.interviewing" data-i18n="status.interviewing">面試中</option>
+              <option value="status.waiting" data-i18n="status.waiting">等待結果</option>
+              <option value="status.closed" data-i18n="status.closed">已完結</option>
+            </select>
+            <input id="jobFollowUpDate" type="date" data-i18n-attr="title:input.followup.ph">
+          </div>
+          <input id="jobNotes" type="text" maxlength="200" data-i18n-attr="placeholder:input.notes.ph">
+          <button type="submit" class="btn-submit btn-blue" data-i18n="btn.submit.job">記錄申請</button>
+        </form>
+        <div id="jobList" class="list scrollable"></div>
+      </section>
+
+      <!-- 3. 面試日程 -->
+      <section class="card">
+        <h2 data-i18n="section.interviews">面試與關鍵日程</h2>
+        <form id="interviewForm" class="form-group">
+          <input id="intTitle" type="text" maxlength="100" data-i18n-attr="placeholder:input.interview.ph" required>
+          <input id="intDateTime" type="datetime-local" required>
+          <button type="submit" class="btn-submit btn-green" data-i18n="btn.submit.interview">加入日程</button>
+        </form>
+        <div id="interviewList" class="list"></div>
+      </section>
+    </main>
+
+    <!-- 頁尾合規徽章列 -->
+    <footer class="footer-trust">
+      <div class="trust-tags">
+        <span class="trust-pill" data-action="open-compliance">🛡️ Privacy by Design</span>
+        <span class="trust-pill" data-action="open-compliance">HK PDPO Compliant</span>
+        <span class="trust-pill" data-action="open-compliance">GDPR Art. 25</span>
+        <span class="trust-pill" data-action="open-compliance">ISO 27001 / 27701 Aligned</span>
+        <span class="trust-pill" data-action="open-compliance">Zero Data Retention (ZDR)</span>
+      </div>
+    </footer>
+  </div>
+
+  <!-- 使用指引 Modal -->
+  <dialog id="guideModal" class="modal">
+    <div class="modal-box">
+      <h3 data-i18n="guide.title">安心歇 · 上手與心理使用指引</h3>
+      <p class="modal-intro" data-i18n="guide.intro">三步重拾日常秩序，在間奏中穩步前行：</p>
+      
+      <div class="guide-steps">
+        <div class="guide-step-card">
+          <div class="step-num">1</div>
+          <div>
+            <h4 data-i18n="guide.s1.title">定下日常錨點</h4>
+            <p data-i18n="guide.s1.desc">先從左欄建立固定作息（例：08:30 起床、散步 30 分鐘）。維持掌控感比整天盲目投遞更重要。</p>
+          </div>
+        </div>
+        <div class="guide-step-card">
+          <div class="step-num">2</div>
+          <div>
+            <h4 data-i18n="guide.s2.title">節制且結構化地投遞</h4>
+            <p data-i18n="guide.s2.desc">每日求職不超過 2 小時。投遞後記錄公司與「跟進日期」，隨時可編輯，逾期會自動標記紅色提醒。</p>
+          </div>
+        </div>
+        <div class="guide-step-card">
+          <div class="step-num">3</div>
+          <div>
+            <h4 data-i18n="guide.s3.title">客觀覆盤，調整策略</h4>
+            <p data-i18n="guide.s3.desc">每週點開「每週覆盤與數據」檢視轉化率與未回覆狀況，不再把求職未果歸咎於個人價值。</p>
+          </div>
+        </div>
+      </div>
+
+      <div class="modal-actions-right">
+        <button id="btnCloseGuide" class="btn-secondary" data-i18n="btn.close">關閉</button>
+      </div>
+    </div>
+  </dialog>
+
+  <!-- 合規與隱私治理聲明 Modal -->
+  <dialog id="complianceModal" class="modal">
+    <div class="modal-box">
+      <h3 data-i18n="compliance.title">資訊安全與隱私合規聲明 (Privacy & Governance)</h3>
+      <p class="modal-intro" data-i18n="compliance.intro">本工具專為消除求職焦慮與保障隱私而設計，具備以下架構性合規保障：</p>
+      
+      <ul class="compliance-list">
+        <li>
+          <strong>🇭🇰 香港個人資料（私隱）條例 (PDPO)</strong>：
+          <span data-i18n="comp.pdpo">本機記憶體即時運算，不設後端伺服器與日誌歸檔，零個資外洩風險。</span>
+        </li>
+        <li>
+          <strong>🇪🇺 歐盟 GDPR (General Data Protection Regulation)</strong>：
+          <span data-i18n="comp.gdpr">嚴格遵循 Article 25 (Privacy-by-Design) 與資料最小化原則，用戶擁有完整本機資料可攜性（JSON 一鍵導出）。</span>
+        </li>
+        <li>
+          <strong>🤖 歐盟人工智能法案 (EU AI Act) & 倫理規範</strong>：
+          <span data-i18n="comp.ai">不採用黑箱自動化篩選演算法，求職數據僅用於本機可解釋性統計，完全由用戶主導（Human-in-the-Loop）。</span>
+        </li>
+        <li>
+          <strong>🔒 ISO/IEC 27001 (資安) & ISO/IEC 27701 (隱私)</strong>：
+          <span data-i18n="comp.iso">以 Content Security Policy (CSP) 阻斷所有外部追蹤與資料外發通道，符合零信任純前端標準。</span>
+        </li>
+      </ul>
+
+      <div class="modal-actions-right">
+        <button id="btnCloseCompliance" class="btn-secondary" data-i18n="btn.close">關閉</button>
+      </div>
+    </div>
+  </dialog>
+
+  <!-- 編輯申請 Dialog -->
+  <dialog id="editJobModal" class="modal">
+    <div class="modal-box">
+      <h3 data-i18n="edit.title">編輯求職記錄</h3>
+      <form id="editJobForm" class="form-group modal-form">
+        <input type="hidden" id="editJobId">
+        <label data-i18n="label.company">公司及職位</label>
+        <input id="editJobCompany" type="text" maxlength="100" required>
+        <label data-i18n="label.status">目前狀態</label>
+        <select id="editJobStatus">
+          <option value="status.applied" data-i18n="status.applied">已投遞</option>
+          <option value="status.interviewing" data-i18n="status.interviewing">面試中</option>
+          <option value="status.waiting" data-i18n="status.waiting">等待結果</option>
+          <option value="status.closed" data-i18n="status.closed">已完結</option>
+        </select>
+        <label data-i18n="label.followup">跟進日期</label>
+        <input id="editJobFollowUpDate" type="date">
+        <label data-i18n="label.notes">覆盤筆記</label>
+        <input id="editJobNotes" type="text" maxlength="200">
+        <div class="modal-actions-between">
+          <button type="button" id="btnCancelEdit" class="btn-secondary" data-i18n="btn.cancel">取消</button>
+          <button type="submit" class="btn-submit btn-blue w-auto px-4" data-i18n="btn.save">儲存更新</button>
+        </div>
+      </form>
+    </div>
+  </dialog>
+
+  <!-- 每週覆盤與數據指標 Dialog -->
+  <dialog id="reviewModal" class="modal">
+    <div class="modal-box">
+      <h3 data-i18n="review.title">求職轉換漏斗與每週覆盤</h3>
+      <p class="modal-intro" data-i18n="review.intro"></p>
+      
+      <div id="funnelStats" class="funnel-grid"></div>
+
+      <div class="review-questions">
+        <p><strong data-i18n="review.q1"></strong></p>
+        <p><strong data-i18n="review.q2"></strong></p>
+      </div>
+      <div class="modal-actions-right">
+        <button id="btnCloseModal" class="btn-secondary" data-i18n="btn.close">關閉</button>
+      </div>
+    </div>
+  </dialog>
+
+  <script src="js/storage.js"></script>
+  <script src="js/i18n.js"></script>
+  <script src="js/app.js"></script>
+</body>
+</html>
