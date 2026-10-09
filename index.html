@@ -15,7 +15,7 @@
   <meta name="robots" content="index, follow">
   <link rel="canonical" href="https://jackylawck.github.io/PauseWell/">
 
-  <!-- 🌐 Open Graph / Facebook / LinkedIn 社交卡片 (封面圖對齊至 gemini-svg.svg) -->
+  <!-- 🌐 Open Graph / Facebook / LinkedIn 社交卡片 -->
   <meta property="og:type" content="website">
   <meta property="og:url" content="https://jackylawck.github.io/PauseWell/">
   <meta property="og:title" content="安心歇 · PauseWell | 歇奏之間，安心自定">
@@ -82,7 +82,7 @@
       </div>
     </header>
 
-    <!-- 🎨 經典悠長假期看板封面 (使用 gemini-svg.svg) -->
+    <!-- 🎨 經典悠長假期看板封面 -->
     <div class="cover-wrapper">
       <img src="gemini-svg.svg" alt="安心歇 · DON'T WORRY BE HAPPY 經典看板" class="cover-img">
     </div>
@@ -129,7 +129,8 @@
               <option value="status.waiting" data-i18n="status.waiting">等待結果</option>
               <option value="status.closed" data-i18n="status.closed">已完結</option>
             </select>
-            <input id="jobFollowUpDate" type="date" data-i18n-attr="title:input.followup.ph">
+            <!-- 增加 data-date-input 標記供 JS 精確控制語言環境 -->
+            <input id="jobFollowUpDate" type="date" data-date-input data-i18n-attr="title:input.followup.ph">
           </div>
           <input id="jobNotes" type="text" maxlength="200" data-i18n-attr="placeholder:input.notes.ph">
           <button type="submit" class="btn-submit btn-blue" data-i18n="btn.submit.job">記錄申請</button>
@@ -142,7 +143,8 @@
         <h2 data-i18n="section.interviews">面試與關鍵日程</h2>
         <form id="interviewForm" class="form-group">
           <input id="intTitle" type="text" maxlength="100" data-i18n-attr="placeholder:input.interview.ph" required>
-          <input id="intDateTime" type="datetime-local" required>
+          <!-- 增加 data-date-input 標記供 JS 精確控制語言環境 -->
+          <input id="intDateTime" type="datetime-local" data-date-input required>
           <button type="submit" class="btn-submit btn-green" data-i18n="btn.submit.interview">加入日程</button>
         </form>
         <div id="interviewList" class="list"></div>
@@ -249,7 +251,7 @@
           <option value="status.closed" data-i18n="status.closed">已完結</option>
         </select>
         <label data-i18n="label.followup">跟進日期</label>
-        <input id="editJobFollowUpDate" type="date">
+        <input id="editJobFollowUpDate" type="date" data-date-input>
         <label data-i18n="label.notes">覆盤筆記</label>
         <input id="editJobNotes" type="text" maxlength="200">
         <div class="modal-actions-between">
