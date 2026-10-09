@@ -1,5 +1,5 @@
 /**
- * Lightweight Enterprise i18n Engine
+ * Lightweight Enterprise i18n Engine (Strict Bilingual & Native Form Support)
  */
 const I18N_STORAGE_KEY = 'career_anchor_lang';
 const FALLBACK_LANG = 'zh-HK';
@@ -173,7 +173,10 @@ function setLanguage(lang) {
   if (!dictionaries[lang]) return;
   currentLang = lang;
   localStorage.setItem(I18N_STORAGE_KEY, lang);
-  document.documentElement.lang = lang;
+  
+  // 設置具體 BCP-47 代碼，強制瀏覽器元件對齊語言
+  document.documentElement.lang = (lang === 'en') ? 'en-US' : 'zh-HK';
+  
   applyTranslations();
   window.dispatchEvent(new CustomEvent('languageChanged', { detail: { lang } }));
 }
@@ -183,10 +186,13 @@ function toggleLanguage() {
 }
 
 function applyTranslations() {
+  // 1. 純文字節點替換
   document.querySelectorAll('[data-i18n]').forEach(el => {
-    el.textContent = t(el.getAttribute('data-i18n'));
+    const key = el.getAttribute('data-i18n');
+    el.textContent = t(key);
   });
 
+  // 2. 複合屬性（placeholder, title）替換
   document.querySelectorAll('[data-i18n-attr]').forEach(el => {
     const rawMappings = el.getAttribute('data-i18n-attr').split(',');
     rawMappings.forEach(mapping => {
@@ -195,8 +201,18 @@ function applyTranslations() {
     });
   });
 
+  // 3. 強制刷新所有 select option 的 text 與 textContent
+  document.querySelectorAll('option[data-i18n]').forEach(opt => {
+    const key = opt.getAttribute('data-i18n');
+    const translated = t(key);
+    opt.textContent = translated;
+    opt.text = translated;
+  });
+
+  // 4. 更新分頁標題
   document.title = t('app.title');
 
+  // 5. 更新語言切換按鈕文案
   const toggleBtn = document.getElementById('btnLangToggle');
   if (toggleBtn) toggleBtn.textContent = t('lang.label');
 }
