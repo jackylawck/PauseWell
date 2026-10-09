@@ -248,7 +248,7 @@ document.addEventListener('DOMContentLoaded', () => {
     }
   });
 
-  // 面試提交與刪除
+  // 面試日程提交與刪除
   document.getElementById('interviewForm').addEventListener('submit', (e) => {
     e.preventDefault();
     state.interviews.push({
@@ -344,6 +344,11 @@ document.addEventListener('DOMContentLoaded', () => {
       }
     };
     reader.readAsText(file);
+  });
+
+  // PWA 安裝攔截
+  window.addEventListener('beforeinstallprompt', (e) => {
+    e.preventDefault();
   });
 
   document.getElementById('btnLangToggle').addEventListener('click', toggleLanguage);
