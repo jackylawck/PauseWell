@@ -89,7 +89,7 @@ PauseWell/
 ├── index.html              # 主頁面 (SEO, PWA Headers, Modals & Dialogs)
 ├── style.css               # 響應式排版、封面、合規標籤與自適應樣式
 ├── manifest.json           # PWA 應用組態與安裝清單
-├── gemini-svg.svg          # 經典悠長假期看板純代碼封面 (Zero-Asset SVG)
+├── BeHappy.svg          # 經典悠長假期看板純代碼封面 (Zero-Asset SVG)
 ├── PauseWell192icon.png    # PWA 桌面圖示 (192x192 簡約風格)
 ├── PauseWell512icon.png    # 高解析度啟動圖示與社交卡片 (512x512)
 ├── GOVERNANCE.md           # 國際法規與資訊安全治理適用性評估報告
