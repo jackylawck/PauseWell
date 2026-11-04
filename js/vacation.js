@@ -38,57 +38,65 @@
     }
   ];
 
-  // 1. 純代碼 7.5 秒悠長鋼琴和弦合成器 (Fmaj9: 8 音琶音 + 實體琴弦濾波阻尼)
+  // 1. 聲學心理學調校：11 秒雙和弦舒緩泛音合成器 (Fmaj9 接納 ➔ Cmaj9 釋懷著陸)
   function playGentleChord() {
     try {
       var AudioCtx = window.AudioContext || window.webkitAudioContext;
       if (!AudioCtx) return;
       var ctx = new AudioCtx();
-
-      // 8 音分層和弦配置 (深沉低音至高音晨曦泛音)
-      var notes = [
-        { f: 87.31,  gain: 0.14, dur: 7.5 }, // F2 低音基底錨點
-        { f: 130.81, gain: 0.10, dur: 7.2 }, // C3 五音支撐
-        { f: 174.61, gain: 0.09, dur: 6.8 }, // F3 八度厚度
-        { f: 220.00, gain: 0.08, dur: 6.5 }, // A3 三音溫暖
-        { f: 261.63, gain: 0.07, dur: 6.2 }, // C4
-        { f: 329.63, gain: 0.06, dur: 6.0 }, // E4 大七度空靈
-        { f: 392.00, gain: 0.05, dur: 5.6 }, // G4 九音清澈
-        { f: 523.25, gain: 0.03, dur: 5.2 }  // C5 餘韻點綴
-      ];
-
       var now = ctx.currentTime;
+
+      // 總輸出通道（預留動態餘量防破音）
       var masterGain = ctx.createGain();
       masterGain.gain.setValueAtTime(0.85, now);
       masterGain.connect(ctx.destination);
 
-      notes.forEach(function (n, idx) {
+      // 兩組交織和弦：對齊「吸氣 4 秒、慢呼 7 秒」的副交感神經節奏
+      var sequence = [
+        // 樂句一：Fmaj9（接納・海風吹拂，0s 至 11s）
+        { f: 87.31,  delay: 0.00, dur: 11.0, gain: 0.13 }, // F2 低音基底錨點
+        { f: 174.61, delay: 0.12, dur: 10.5, gain: 0.09 }, // F3 琴弦共振
+        { f: 220.00, delay: 0.24, dur: 10.0, gain: 0.07 }, // A3 三音溫暖
+        { f: 261.63, delay: 0.36, dur: 9.5,  gain: 0.06 }, // C4
+        { f: 329.63, delay: 0.48, dur: 9.0,  gain: 0.05 }, // E4 大七度空靈
+        { f: 392.00, delay: 0.60, dur: 8.5,  gain: 0.04 }, // G4 清亮九音
+
+        // 樂句二：Cmaj9（著陸・落定釋懷，3.8s 滲入至 11.5s）
+        { f: 65.41,  delay: 3.80, dur: 7.7,  gain: 0.14 }, // C2 深沉歸宿
+        { f: 130.81, delay: 3.92, dur: 7.4,  gain: 0.08 }, // C3 穩定
+        { f: 196.00, delay: 4.04, dur: 7.0,  gain: 0.06 }, // G3 溫厚
+        { f: 246.94, delay: 4.16, dur: 6.6,  gain: 0.05 }, // B3 寧靜七音
+        { f: 293.66, delay: 4.28, dur: 6.2,  gain: 0.04 }, // D4 溫柔九音
+        { f: 392.00, delay: 4.40, dur: 5.8,  gain: 0.03 }  // G4 遠方迴響
+      ];
+
+      sequence.forEach(function (n) {
         var osc = ctx.createOscillator();
         var noteGain = ctx.createGain();
         var filter = ctx.createBiquadFilter();
 
-        // 模擬真實鋼琴琴槌觸鍵與毛氈阻尼效果 (高頻隨時間漸進衰減)
+        // 模擬真實木質鋼琴毛氈琴槌之動態濾波（高頻隨時間平滑衰減）
         filter.type = 'lowpass';
-        filter.frequency.setValueAtTime(2200, now);
-        filter.frequency.exponentialRampToValueAtTime(280, now + n.dur);
+        filter.frequency.setValueAtTime(2600, now);
+        filter.frequency.exponentialRampToValueAtTime(160, now + n.delay + n.dur);
 
+        // 正弦波基礎音色，兼具圓潤與純淨
         osc.type = 'sine';
         osc.frequency.setValueAtTime(n.f, now);
 
-        // 琶音起奏時間差 (Arpeggio Onset: 110ms)
-        var noteStart = now + (idx * 0.11);
-        noteGain.gain.setValueAtTime(0.0001, noteStart);
-        // 柔和觸鍵 Attack (35ms)
-        noteGain.gain.linearRampToValueAtTime(n.gain, noteStart + 0.035);
-        // 7.5 秒長衰減共振尾韻 (Exponential Release)
-        noteGain.gain.exponentialRampToValueAtTime(0.00005, noteStart + n.dur);
+        var startTime = now + n.delay;
+        noteGain.gain.setValueAtTime(0.0001, startTime);
+        // 柔和觸鍵 Attack (40ms，徹底消除數位脈衝雜音)
+        noteGain.gain.linearRampToValueAtTime(n.gain, startTime + 0.04);
+        // 指數衰減 Release（延續至聽覺閾值邊緣）
+        noteGain.gain.exponentialRampToValueAtTime(0.00001, startTime + n.dur);
 
         osc.connect(filter);
         filter.connect(noteGain);
         noteGain.connect(masterGain);
 
-        osc.start(noteStart);
-        osc.stop(noteStart + n.dur + 0.1);
+        osc.start(startTime);
+        osc.stop(startTime + n.dur + 0.1);
       });
     } catch (_) {
       // 容錯靜默
@@ -121,7 +129,7 @@
     help: function () {
       console.log('%c[ 🏖️ VACATION INTERACTION SUITE // 沉澱與充能指令集 ]', S.sub);
       console.log('%cvacation.quote()%c   - 隨機提取長假心靈語錄 / Draw an encouraging reflection', S.cmdKey, S.cmdDesc);
-      console.log('%cvacation.piano()%c   - 撥響 7.5 秒悠長鋼琴和弦 / Play 7.5s synthesized piano resonance', S.cmdKey, S.cmdDesc);
+      console.log('%cvacation.piano()%c   - 撥響 11 秒雙和弦舒緩琴音 / Play 11s dual-chord harmonic resonance', S.cmdKey, S.cmdDesc);
       console.log('%cvacation.breathe()%c - 啟動「4-7-8」平復焦慮呼吸節奏 / Start 4-7-8 breathing timer', S.cmdKey, S.cmdDesc);
       console.log('%cvacation.reframe()%c - 雙語認知重塑：打破待業自責 / Bilingual cognitive reframing suite', S.cmdKey, S.cmdDesc);
       console.log('%cvacation.cheer()%c   - 投射破曉晨曦微光特效 / Engage dawn ambient glow', S.cmdKey, S.cmdDesc);
@@ -136,8 +144,9 @@
 
     piano: function () {
       playGentleChord();
-      console.log('%c🎹 [ Fmaj9 Piano Resonance // 7.5s 悠長琴聲迴盪・心神自定 ]', 'background:#0f172a; color:#38bdf8; font-weight:bold; padding:4px 10px; font-family:' + FONT_MONO);
-      return 'Breathe with the 7.5-second resonance. (純 Web Audio 代碼合成，零音檔依賴)';
+      console.log('%c🎹 [ Fmaj9 ➔ Cmaj9 Piano Resonance // 11s 悠長共鳴・安頓心神 ]', 'background:#0f172a; color:#38bdf8; font-weight:bold; padding:4px 10px; font-family:' + FONT_MONO);
+      console.log('%c請隨著琴音閉上眼睛，做一次完整的深呼吸（吸氣 4 秒、慢呼 7 秒）...', 'color:#94a3b8; font-style:italic; font-size:11px;');
+      return 'Breathe with the 11-second harmonic resolution. (純 Web Audio 即時合成，讓心神著陸)';
     },
 
     breathe: function () {
