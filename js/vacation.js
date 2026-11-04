@@ -38,35 +38,57 @@
     }
   ];
 
-  // 1. 純代碼 Web Audio 鋼琴泛音合成器（零外部音樂檔案，無版權爭議）
+  // 1. 純代碼 7.5 秒悠長鋼琴和弦合成器 (Fmaj9: 8 音琶音 + 實體琴弦濾波阻尼)
   function playGentleChord() {
     try {
       var AudioCtx = window.AudioContext || window.webkitAudioContext;
       if (!AudioCtx) return;
       var ctx = new AudioCtx();
-      
-      // Fmaj9 溫暖和弦頻率 (F3, A3, C4, E4, G4)
-      var freqs = [174.61, 220.00, 261.63, 329.63, 392.00];
+
+      // 8 音分層和弦配置 (深沉低音至高音晨曦泛音)
+      var notes = [
+        { f: 87.31,  gain: 0.14, dur: 7.5 }, // F2 低音基底錨點
+        { f: 130.81, gain: 0.10, dur: 7.2 }, // C3 五音支撐
+        { f: 174.61, gain: 0.09, dur: 6.8 }, // F3 八度厚度
+        { f: 220.00, gain: 0.08, dur: 6.5 }, // A3 三音溫暖
+        { f: 261.63, gain: 0.07, dur: 6.2 }, // C4
+        { f: 329.63, gain: 0.06, dur: 6.0 }, // E4 大七度空靈
+        { f: 392.00, gain: 0.05, dur: 5.6 }, // G4 九音清澈
+        { f: 523.25, gain: 0.03, dur: 5.2 }  // C5 餘韻點綴
+      ];
+
       var now = ctx.currentTime;
+      var masterGain = ctx.createGain();
+      masterGain.gain.setValueAtTime(0.85, now);
+      masterGain.connect(ctx.destination);
 
-      freqs.forEach(function (f, index) {
+      notes.forEach(function (n, idx) {
         var osc = ctx.createOscillator();
-        var gain = ctx.createGain();
+        var noteGain = ctx.createGain();
+        var filter = ctx.createBiquadFilter();
 
-        osc.type = 'sine'; // 柔和正弦波
-        osc.frequency.setValueAtTime(f, now);
+        // 模擬真實鋼琴琴槌觸鍵與毛氈阻尼效果 (高頻隨時間漸進衰減)
+        filter.type = 'lowpass';
+        filter.frequency.setValueAtTime(2200, now);
+        filter.frequency.exponentialRampToValueAtTime(280, now + n.dur);
 
-        // 微小的琶音時間差（琶音感 Arpeggio）
-        var noteStart = now + (index * 0.08);
-        gain.gain.setValueAtTime(0, noteStart);
-        gain.gain.linearRampToValueAtTime(0.08, noteStart + 0.05);
-        gain.gain.exponentialRampToValueAtTime(0.0001, noteStart + 2.8); // 緩慢自然消逝
+        osc.type = 'sine';
+        osc.frequency.setValueAtTime(n.f, now);
 
-        osc.connect(gain);
-        gain.connect(ctx.destination);
+        // 琶音起奏時間差 (Arpeggio Onset: 110ms)
+        var noteStart = now + (idx * 0.11);
+        noteGain.gain.setValueAtTime(0.0001, noteStart);
+        // 柔和觸鍵 Attack (35ms)
+        noteGain.gain.linearRampToValueAtTime(n.gain, noteStart + 0.035);
+        // 7.5 秒長衰減共振尾韻 (Exponential Release)
+        noteGain.gain.exponentialRampToValueAtTime(0.00005, noteStart + n.dur);
+
+        osc.connect(filter);
+        filter.connect(noteGain);
+        noteGain.connect(masterGain);
 
         osc.start(noteStart);
-        osc.stop(noteStart + 3.0);
+        osc.stop(noteStart + n.dur + 0.1);
       });
     } catch (_) {
       // 容錯靜默
@@ -99,9 +121,9 @@
     help: function () {
       console.log('%c[ 🏖️ VACATION INTERACTION SUITE // 沉澱與充能指令集 ]', S.sub);
       console.log('%cvacation.quote()%c   - 隨機提取長假心靈語錄 / Draw an encouraging reflection', S.cmdKey, S.cmdDesc);
-      console.log('%cvacation.piano()%c   - 撥響純代碼合成之溫暖鋼琴和弦 / Play a synthesized calm chord', S.cmdKey, S.cmdDesc);
+      console.log('%cvacation.piano()%c   - 撥響 7.5 秒悠長鋼琴和弦 / Play 7.5s synthesized piano resonance', S.cmdKey, S.cmdDesc);
       console.log('%cvacation.breathe()%c - 啟動「4-7-8」平復焦慮呼吸節奏 / Start 4-7-8 breathing timer', S.cmdKey, S.cmdDesc);
-      console.log('%cvacation.reframe()%c - 執行認知重塑：打破「待業自責」迴圈 / Cognitive reframing prompt', S.cmdKey, S.cmdDesc);
+      console.log('%cvacation.reframe()%c - 雙語認知重塑：打破待業自責 / Bilingual cognitive reframing suite', S.cmdKey, S.cmdDesc);
       console.log('%cvacation.cheer()%c   - 投射破曉晨曦微光特效 / Engage dawn ambient glow', S.cmdKey, S.cmdDesc);
       return '輸入上述指令以調適心神 / Type any command above to proceed.';
     },
@@ -114,8 +136,8 @@
 
     piano: function () {
       playGentleChord();
-      console.log('%c🎹 [ Fmaj9 Piano Resonance // 琴鍵清音響起・心神自定 ]', 'background:#0f172a; color:#38bdf8; font-weight:bold; padding:4px 10px; font-family:' + FONT_MONO);
-      return 'Breathe with the resonance. (由原生 Web Audio 即時合成，無音檔下載)';
+      console.log('%c🎹 [ Fmaj9 Piano Resonance // 7.5s 悠長琴聲迴盪・心神自定 ]', 'background:#0f172a; color:#38bdf8; font-weight:bold; padding:4px 10px; font-family:' + FONT_MONO);
+      return 'Breathe with the 7.5-second resonance. (純 Web Audio 代碼合成，零音檔依賴)';
     },
 
     breathe: function () {
@@ -139,17 +161,49 @@
     },
 
     reframe: function () {
-      var audit = [
-        '┌───────────────────────┬──────────────────────────────────────────┐',
-        '│ 焦慮陷阱 (Cognitive Distortion)│ 客觀事實重塑 (Objective Reframe)           │',
-        '├───────────────────────┼──────────────────────────────────────────┤',
-        '│ 「我一直冇 Offer，好無用」     │ 求職是配對過程，不是你個人品格與才能的終審評分。  │',
-        '│ 「空白期越長，我越冇價值」     │ 刻意停頓是為了校準航道；沉澱者的價值從未消退。  │',
-        '│ 「身邊人都在前進，只有我停步」  │ 每個人都有自己的時區，這是一場屬於你的蓄力長假。│',
-        '└───────────────────────┴──────────────────────────────────────────┘'
-      ].join('\n');
-      console.log('%c' + audit, 'background:#0f172a; color:#fbbf24; font-family:' + FONT_MONO + '; font-size:11px; line-height:1.5; padding:8px;');
-      return 'Cognitive reframing complete: Turn self-blame into strategic patience.';
+      console.log('%c[ 🧠 BILINGUAL COGNITIVE REFRAMING // 雙語待業認知重塑 ]', S.billboard);
+      console.log('%c客觀解構焦慮陷阱，重拾個人行動掌控權 / Reclaim personal agency from cognitive traps', S.sub);
+      console.log('');
+
+      var cards = [
+        {
+          id: '1',
+          trapZh: '「我一直冇 Offer，好無用」',
+          trapEn: '“No offers yet, I feel completely useless.”',
+          factZh: '求職本質是雙向條件配對，絕非對你個人品格、智慧與終身價值的裁判。',
+          factEn: 'Job hunting is a bilateral matching process, never a verdict on your competence or personal worth.'
+        },
+        {
+          id: '2',
+          trapZh: '「空白期越長，我越冇價值」',
+          trapEn: '“The longer the career gap, the less market value I have.”',
+          factZh: '主動停頓是為了校準航向；真正沉澱後的經驗與專業，價值從未消退。',
+          factEn: 'An intentional pause recalibrates your life trajectory; hard-earned wisdom does not depreciate during an intermission.'
+        },
+        {
+          id: '3',
+          trapZh: '「身邊人都在前進，只有我停步」',
+          trapEn: '“Everyone else is advancing while I am stalled in place.”',
+          factZh: '每個人都有各自的人生時區；這是一場上天賜予你深呼吸與重整節奏的長假。',
+          factEn: 'Everyone moves in their own time zone. Take this as a gifted vacation to rest, rearm, and tune your melody.'
+        }
+      ];
+
+      cards.forEach(function (c) {
+        console.log(
+          '%c 陷阱 TRAP ' + c.id + ' %c ' + c.trapZh + '\n          ' + c.trapEn,
+          'background:#fee2e2; color:#b91c1c; font-weight:900; font-size:11px; padding:2px 6px; border-radius:3px;',
+          'color:#991b1b; font-style:italic; font-family:' + FONT_MONO + ';'
+        );
+        console.log(
+          '%c 重塑 FACT ' + c.id + ' %c ' + c.factZh + '\n          ' + c.factEn,
+          'background:#dcfce7; color:#15803d; font-weight:900; font-size:11px; padding:2px 6px; border-radius:3px;',
+          'color:#166534; font-weight:bold; font-family:' + FONT_MONO + '; line-height:1.5;'
+        );
+        console.log('');
+      });
+
+      return 'Cognitive reframing complete: Turn self-blame into strategic patience / 認知重塑完成：將自責轉化為戰略耐心。';
     },
 
     cheer: function () {
@@ -163,7 +217,6 @@
       var originBoxShadow = doc.style.boxShadow;
 
       doc.style.transition = 'box-shadow 0.8s ease-in-out';
-      // 破曉晨曦金綠光暈
       doc.style.boxShadow = 'inset 0 0 80px rgba(56, 189, 248, 0.4), inset 0 0 120px rgba(251, 191, 36, 0.25)';
 
       setTimeout(function () {
@@ -176,7 +229,6 @@
     }
   });
 
-  // 延遲載入以防阻礙首屏渲染
   if (document.readyState === 'complete' || document.readyState === 'interactive') {
     setTimeout(renderVacationBanner, 300);
   } else {
